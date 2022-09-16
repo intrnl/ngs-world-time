@@ -1,34 +1,156 @@
-<script>
-	export let name;
+<script context='module'>
+	import * as fns from 'date-fns/esm';
+	import { utcToZonedTime } from 'date-fns-tz/esm';
+
+	function interval (ms, signal, callback) {
+		const start = document.timeline ? document.timeline.currentTime : performance.now();
+
+		function frame (time) {
+			if (signal.aborted) {
+				return;
+			}
+
+			callback(time);
+			schedule(time);
+		}
+
+		function schedule (time) {
+			const elapsed = time - start;
+			const rounded_elapsed = Math.round(elapsed / ms) * ms;
+			const target = start + rounded_elapsed + ms;
+			const delay = target - performance.now();
+
+			setTimeout(() => requestAnimationFrame(frame), delay);
+		}
+
+		schedule(start);
+	}
+
+	function calculate_time (from, time, hours) {
+		let start = fns.startOfHour(fns.setHours(time, hours));
+
+		if (start <= time) {
+			start = fns.addDays(start, 1);
+		}
+
+		return fns.addSeconds(from, fns.differenceInSeconds(start, time) / 30);
+	}
+
+	function leftpad (value, pad, amount) {
+		return ('' + value).padStart(amount, pad);
+	}
+
+	function diff_format (start, end) {
+		const { minutes, seconds } = fns.intervalToDuration({ start, end });
+		return `${leftpad(minutes, '0', 2)}:${leftpad(seconds, '0', 2)}`;
+	}
 </script>
 
-<div class='main'>
-	<h3>Hello <span>{name}</span>!</h3>
-	<p>Edit <code>src/App.velvet</code> and reload to see your changes</p>
-</div>
+<script>
+	import { onMount } from '@intrnl/velvet';
+
+	let now = Date.now();
+
+	let time = 0;
+	let morning = 0;
+	let night = 0;
+
+	$: {
+		const zoned = utcToZonedTime(now, '-07:00');
+		const diff = fns.differenceInSeconds(zoned, fns.subMinutes(fns.startOfDay(zoned), 38));
+
+		const ingame = fns.addSeconds(fns.startOfDay(now), diff % 2880 * 30);
+
+		time = ingame;
+		morning = calculate_time(now, time, 6);
+		night = calculate_time(now, time, 20);
+	};
+
+	onMount(() => {
+		const controller = new AbortController();
+		interval(1000, controller.signal, () => now = Date.now());
+
+		return () => controller.abort();
+	});
+</script>
+
+<h3>NGS World Time</h3>
+
+<table>
+	<thead>
+		<tr>
+			<th>Current time:</th>
+			<td>{fns.format(time, 'hh:mm aa')}</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>Day (06:00 AM):</th>
+			<td>
+				<small>(in {diff_format(now, morning)})</small>
+				<span>{fns.format(morning, 'hh:mm aa')}</span>
+			</td>
+		</tr>
+		<tr>
+			<th>Night (08:00 PM):</th>
+			<td>
+				<small>(in {diff_format(now, night)})</small>
+				<span>{fns.format(night, 'hh:mm aa')}</span>
+			</td>
+		</tr>
+		<tr>
+		</tr>
+	<tbody>
+</table>
+
+<hr>
+
+<a href='https://codeberg.org/intrnl/ngs-world-time' target='_blank'>source code</a>
 
 <style>
-	.main {
-		text-align: center;
-		width: 600px;
-		margin: 48px auto;
+	*, *::before, *::after {
+		box-sizing: border-box;
 	}
 
-	.main h3 {
-		font-size: 24px;
-		font-weight: 500;
+	h3 {
+		margin-top: 0;
+		margin-bottom: 16px;
 	}
 
-	.main span {
-		color: #df0000;
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		margin: -8px 0;
 	}
 
-	.main code {
-		color: #ffffff;
-		background-color: #343434;
-		font-size: 14px;
-		padding: 2px 4px;
-		vertical-align: middle;
-		border-radius: 4px;
+	table th {
+		text-align: left;
+	}
+
+	table td {
+		text-align: right;
+	}
+
+	table :is(th, td) {
+		padding: 8px 0;
+	}
+
+	hr {
+		border: 0;
+		border-top: 1px solid currentColor;
+		margin: 16px 0;
+	}
+
+	a {
+		text-decoration: none;
+	}
+	a:hover {
+		text-decoration: underline;
+	}
+
+	small {
+		font-size: inherit;
+		color: GrayText;
+		margin-right: 8px;
 	}
 </style>
