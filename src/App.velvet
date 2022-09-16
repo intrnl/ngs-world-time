@@ -1,6 +1,7 @@
 <script context='module'>
 	import * as fns from 'date-fns/esm';
 	import { utcToZonedTime } from 'date-fns-tz/esm';
+	import format from 'intl-dateformat';
 
 	function interval (ms, signal, callback) {
 		const start = document.timeline ? document.timeline.currentTime : performance.now();
@@ -80,7 +81,7 @@
 	<thead>
 		<tr>
 			<th>Current time:</th>
-			<td>{fns.format(time, 'hh:mm aa')}</td>
+			<td>{format(time, 'hh:mm A')}</td>
 		</tr>
 	</thead>
 	<tbody>
@@ -88,14 +89,14 @@
 			<th>Day (06:00 AM):</th>
 			<td>
 				<small>(in {diff_format(now, morning)})</small>
-				<span>{fns.format(morning, 'hh:mm aa')}</span>
+				<span>{format(morning, 'hh:mm A')}</span>
 			</td>
 		</tr>
 		<tr>
 			<th>Night (08:00 PM):</th>
 			<td>
 				<small>(in {diff_format(now, night)})</small>
-				<span>{fns.format(night, 'hh:mm aa')}</span>
+				<span>{format(night, 'hh:mm A')}</span>
 			</td>
 		</tr>
 		<tr>

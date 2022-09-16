@@ -7,11 +7,13 @@ specifiers:
   date-fns: ^2.29.3
   date-fns-tz: ^1.3.7
   esbuild: ^0.15.7
+  intl-dateformat: ^0.1.4
 
 dependencies:
   '@intrnl/velvet': 0.0.0-alpha-20220916135916
   date-fns: 2.29.3
   date-fns-tz: 1.3.7_date-fns@2.29.3
+  intl-dateformat: 0.1.4
 
 devDependencies:
   '@intrnl/esbuild-plugin-velvet': 0.5.2_4mveaxcr22m5sl7j6qczslrfce
@@ -308,6 +310,10 @@ packages:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
     engines: {node: '>=6.9.0'}
     dev: true
+
+  /intl-dateformat/0.1.4:
+    resolution: {integrity: sha512-dpDKNq8koI5WEKBmOiJSwP8op/LLoibtnPCEizjwTw/O/lnu1CdXg0yK6b8VYHu7CM+eYsL2LleNQCJ9QKTGCQ==}
+    dev: false
 
   /stable-hash/0.0.2:
     resolution: {integrity: sha512-tPwQ3c1rLIwbJpq59duoznegEbmgfV630C2n4R4G96LKBFljgK8j+O9AxjqB6cAzu4gE7s4pByrLWtZel8E+Mg==}
