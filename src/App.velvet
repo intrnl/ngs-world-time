@@ -81,7 +81,7 @@
 	<thead>
 		<tr>
 			<th>Current time:</th>
-			<td>{format(time, 'hh:mm A')}</td>
+			<td>{format(time, 'hh:mm A', { locale: 'en' })}</td>
 		</tr>
 	</thead>
 	<tbody>
@@ -89,14 +89,14 @@
 			<th>Day (06:00 AM):</th>
 			<td>
 				<small>(in {diff_format(now, morning)})</small>
-				<span>{format(morning, 'hh:mm A')}</span>
+				<span>{format(morning, 'hh:mm A', { locale: 'en' })}</span>
 			</td>
 		</tr>
 		<tr>
 			<th>Night (08:00 PM):</th>
 			<td>
 				<small>(in {diff_format(now, night)})</small>
-				<span>{format(night, 'hh:mm A')}</span>
+				<span>{format(night, 'hh:mm A', { locale: 'en' })}</span>
 			</td>
 		</tr>
 		<tr>
