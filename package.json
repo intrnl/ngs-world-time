@@ -5,19 +5,20 @@
 		"node": ">=16.0.0"
 	},
 	"scripts": {
-		"dev": "NODE_ENV=development node ./scripts/dev.js",
-		"build": "NODE_ENV=production node ./scripts/build.js",
-		"publish": "rm -r dist/_assets; pnpm run build; scripts/publish.sh"
+		"dev": "vite",
+		"build": "vite build",
+		"publish": "pnpm run build; scripts/publish.sh"
 	},
 	"dependencies": {
-		"@intrnl/velvet": "0.4.22",
 		"date-fns": "^2.29.3",
-		"date-fns-tz": "^1.3.8",
-		"intl-dateformat": "^0.1.4"
+		"date-fns-tz": "^2.0.0",
+		"intl-dateformat": "^0.1.4",
+		"solid-js": "^1.7.3"
 	},
 	"devDependencies": {
-		"@intrnl/esbuild-plugin-velvet": "^0.6.1",
-		"@intrnl/velvet-compiler": "0.8.0",
-		"esbuild": "^0.17.17"
+		"dprint": "^0.35.4",
+		"typescript": "^5.0.4",
+		"vite": "^4.2.1",
+		"vite-plugin-solid": "^2.7.0"
 	}
 }
