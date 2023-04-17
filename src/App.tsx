@@ -113,8 +113,6 @@ const App = () => {
 							<span>{format(night(), 'hh:mm A', { locale: 'en' })}</span>
 						</td>
 					</tr>
-					<tr>
-					</tr>
 				</tbody>
 			</table>
 
