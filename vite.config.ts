@@ -8,6 +8,9 @@ export default defineConfig({
 	build: {
 		sourcemap: true,
 		target: 'esnext',
+		modulePreload: {
+			polyfill: false,
+		},
 	},
 	resolve: {
 		alias: {
