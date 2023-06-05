@@ -1,17 +1,28 @@
 {
 	"compilerOptions": {
-		"allowSyntheticDefaultImports": true,
-		"esModuleInterop": true,
 		"target": "ESNext",
+		"lib": ["DOM", "DOM.Iterable", "ESNext"],
 		"module": "ESNext",
-		"verbatimModuleSyntax": true,
-		"moduleResolution": "node",
-		"jsxImportSource": "solid-js",
+		"skipLibCheck": true,
+
+		"moduleResolution": "bundler",
+		"allowImportingTsExtensions": true,
+		"resolveJsonModule": true,
+		"noEmit": true,
 		"jsx": "preserve",
+		"jsxImportSource": "solid-js",
+
+		"incremental": true,
 		"strict": true,
-		"baseUrl": "./",
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noFallthroughCasesInSwitch": true,
+		"verbatimModuleSyntax": true,
+
 		"paths": {
 			"~/*": ["./src/*"]
 		}
-	}
+	},
+	"include": ["src"],
+	"references": [{ "path": "./tsconfig.node.json" }]
 }
