@@ -62,7 +62,7 @@ const diffFormat = (start: Date, end: Date) => {
 	}
 
 	str && (str += `:`);
-	str += `${leftpad(minutes, '0', 2)}:${leftpad(seconds, '0', 2)}`;
+	str += `${pad ? leftpad(minutes, '0', 2) : minutes}:${leftpad(seconds, '0', 2)}`;
 
 	return str;
 };
