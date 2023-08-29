@@ -1,7 +1,6 @@
 export interface Duration {
 	years?: number;
 	months?: number;
-	weeks?: number;
 	days?: number;
 	hours?: number;
 	minutes?: number;
@@ -24,26 +23,18 @@ const sign = Math.sign;
 const trunc = Math.trunc;
 
 // date
-export const intervalToDuration = (start: Date, end: Date) => {
-	const duration: Duration = {};
-	duration.years = differenceInYears(start, end);
+export const intervalToDuration = (start: Date, end: Date): Required<Duration> => {
+	let date = start;
+	let count: number;
 
-	const remainingMonths = addYears(start, duration.years);
-	duration.months = differenceInMonths(end, remainingMonths);
-
-	const remainingDays = addMonths(remainingMonths, duration.months);
-	duration.days = differenceInDays(end, remainingDays);
-
-	const remainingHours = addDays(remainingDays, duration.days);
-	duration.hours = differenceInHours(end, remainingHours);
-
-	const remainingMinutes = addHours(remainingHours, duration.hours);
-	duration.minutes = differenceInMinutes(end, remainingMinutes);
-
-	const remainingSeconds = addMinutes(remainingMinutes, duration.minutes);
-	duration.seconds = differenceInSeconds(end, remainingSeconds);
-
-	return duration as Required<Duration>;
+	return {
+		years: (count = differenceInYears(start, end)),
+		months: (count = differenceInMonths(end, (date = addYears(date, count)))),
+		days: (count = differenceInDays(end, (date = addMonths(date, count)))),
+		hours: (count = differenceInHours(end, (date = addDays(date, count)))),
+		minutes: (count = differenceInMinutes(end, (date = addHours(date, count)))),
+		seconds: (count = differenceInSeconds(end, (date = addMinutes(date, count)))),
+	};
 };
 
 // years
