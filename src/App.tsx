@@ -1,8 +1,6 @@
 import { type Accessor, createMemo, createRenderEffect, createSignal, onMount } from 'solid-js';
 import { render } from 'solid-js/web';
 
-import format from 'intl-dateformat';
-
 import { type ScheduledEvent, events, getNextOccurence } from './events.ts';
 import * as u from './utils.ts';
 
@@ -49,15 +47,18 @@ const leftpad = (value: any, pad: string, amount: number) => {
 const diffFormat = (start: Date, end: Date) => {
 	const { days, hours, minutes, seconds } = u.intervalToDuration(start, end);
 	let str = '';
+	let pad = false;
 
 	if (days !== undefined && days > 0) {
 		str && (str += `:`);
-		str += leftpad(days, '0', 2);
+		str += pad ? leftpad(days, '0', 2) : days;
+		pad = true;
 	}
 
 	if (hours !== undefined && hours > 0) {
 		str && (str += `:`);
-		str += leftpad(hours, '0', 2);
+		str += pad ? leftpad(hours, '0', 2) : hours;
+		pad = true;
 	}
 
 	str && (str += `:`);
@@ -101,6 +102,10 @@ const Occurence = ({ now, event }: { now: Accessor<Date>; event: ScheduledEvent 
 		</tr>
 	);
 };
+
+const timeFormat = new Intl.DateTimeFormat(undefined, {
+	timeStyle: 'short',
+});
 
 const App = () => {
 	const [now, setNow] = createSignal(new Date());
@@ -146,7 +151,7 @@ const App = () => {
 					<tr>
 						<th>Current time:</th>
 						<td>
-							<span>{format(time(), 'hh:mm A', { locale: 'en' })}</span>
+							<span>{timeFormat.format(time())}</span>
 							<svg>
 								<use href={icon()} />
 							</svg>
@@ -158,14 +163,14 @@ const App = () => {
 						<th>Day (06:00 AM):</th>
 						<td>
 							<small>(in {diffFormat(now(), morning())})</small>
-							<span>{format(morning(), 'hh:mm A', { locale: 'en' })}</span>
+							<span>{timeFormat.format(morning())}</span>
 						</td>
 					</tr>
 					<tr>
 						<th>Night (08:00 PM):</th>
 						<td>
 							<small>(in {diffFormat(now(), night())})</small>
-							<span>{format(night(), 'hh:mm A', { locale: 'en' })}</span>
+							<span>{timeFormat.format(night())}</span>
 						</td>
 					</tr>
 				</tbody>
