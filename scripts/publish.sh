@@ -14,4 +14,3 @@ touch deploy/.nojekyll
 git -C deploy/ add .
 git -C deploy/ commit -m "deploy: ${GIT_COMMIT}"
 git -C deploy/ push
-

@@ -13,9 +13,4 @@ export default defineConfig({
 			polyfill: false,
 		},
 	},
-	resolve: {
-		alias: {
-			'date-fns': 'date-fns/esm',
-		},
-	},
 });
