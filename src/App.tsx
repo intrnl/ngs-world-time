@@ -49,13 +49,13 @@ const diffFormat = (start: Date, end: Date) => {
 	let str = '';
 	let pad = false;
 
-	if (days > 0) {
+	if (pad || days > 0) {
 		str && (str += `:`);
 		str += pad ? leftpad(days, '0', 2) : days;
 		pad = true;
 	}
 
-	if (hours > 0) {
+	if (pad || hours > 0) {
 		str && (str += `:`);
 		str += pad ? leftpad(hours, '0', 2) : hours;
 		pad = true;
