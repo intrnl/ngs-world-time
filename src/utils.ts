@@ -24,7 +24,7 @@ const sign = Math.sign;
 const trunc = Math.trunc;
 
 // date
-export const intervalToDuration = (start: Date, end: Date): Duration => {
+export const intervalToDuration = (start: Date, end: Date) => {
 	const duration: Duration = {};
 	duration.years = differenceInYears(start, end);
 
@@ -43,7 +43,7 @@ export const intervalToDuration = (start: Date, end: Date): Duration => {
 	const remainingSeconds = addMinutes(remainingMinutes, duration.minutes);
 	duration.seconds = differenceInSeconds(end, remainingSeconds);
 
-	return duration;
+	return duration as Required<Duration>;
 };
 
 // years
