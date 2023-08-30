@@ -28,9 +28,19 @@ table {
 	margin: -8px 0;
 }
 
+table :is(th, td) {
+	padding: 8px 0;
+}
+
 table th {
 	text-align: left;
 	font-weight: 400;
+}
+
+@media screen and (max-width: 767px) {
+	table th .sequence {
+		display: block;
+	}
 }
 
 table td {
@@ -39,8 +49,12 @@ table td {
 	vertical-align: top;
 }
 
-table :is(th, td) {
-	padding: 8px 0;
+table thead th {
+	font-weight: 700;
+}
+
+table thead th:last-child {
+	text-align: right;
 }
 
 hr {

@@ -96,9 +96,9 @@ const Occurence = ({ now, event }: { now: Accessor<Date>; event: ScheduledEvent 
 		<tr>
 			<th>
 				<span>{name}</span>
-				{sequence && <span>: {sequence[next().index % sequence.length]}</span>}
+				{sequence && <span class="sequence"> {sequence[next().index % sequence.length]}</span>}
 			</th>
-			<td>in {diffFormat(now(), next().date)}</td>
+			<td>{diffFormat(now(), next().date)}</td>
 		</tr>
 	);
 };
@@ -178,9 +178,14 @@ const App = () => {
 
 			<hr />
 
-			<h4>Reset timers</h4>
-
 			<table>
+				<thead>
+					<tr>
+						<th>Reset timers</th>
+						<th class="ends">ends in</th>
+					</tr>
+				</thead>
+
 				<tbody>
 					{events.map((event) => (
 						<Occurence now={now} event={event} />
