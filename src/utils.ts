@@ -111,12 +111,9 @@ export const differenceInMonths = (a: Date, b: Date) => {
 
 		left.setMonth(left.getMonth() - s * d);
 
-		let isLastMonthNotFull = compareAsc(left, b) === -sign;
-
 		// Check for cases of one full calendar month
-		if (isLastDayOfMonth(left) && d === 1 && compareAsc(left, b) === 1) {
-			isLastMonthNotFull = false;
-		}
+		const isLastMonthNotFull =
+			isLastDayOfMonth(left) && d === 1 && compareAsc(left, b) === 1 ? false : compareAsc(left, b) === -s;
 
 		result = s * (d - +isLastMonthNotFull);
 	}
