@@ -24,13 +24,13 @@ const enum Occurence {
 export const events: ScheduledEvent[] = [
 	// Dailies
 	{
-		name: 'Daily tasks',
+		name: 'Daily tasks: Region',
 		start: utc(2023, 7, 29, 12),
 		occurence: Occurence.DAILY,
 		sequence: ['Stia', 'Retem', 'Aelio', 'Kvaris'],
 	},
 	{
-		name: 'GP Tree',
+		name: 'GP Tree:',
 		start: utc(2022, 8, 3, 12),
 		occurence: Occurence.DAILY,
 		sequence: [
@@ -90,6 +90,36 @@ export const events: ScheduledEvent[] = [
 		name: 'Weekly tasks',
 		start: utc(2023, 7, 23, 3),
 		occurence: Occurence.WEEKLY,
+	},
+	{
+		name: 'Alliance tasks: Region',
+		start: utc(2023, 1, 1, 3),
+		occurence: Occurence.WEEKLY,
+		sequence: ['Aelio', 'Retem', 'Kvaris', 'Stia'],
+	},
+	{
+		name: 'Alliance tasks: Augment',
+		start: utc(2023, 1, 22, 3),
+		occurence: Occurence.WEEKLY * 4,
+		sequence: ['Note A', 'Note B', 'Note C', 'Note D'],
+	},
+	{
+		name: 'Alliance tasks: Rare Enemy',
+		start: utc(2023, 1, 1, 3),
+		occurence: Occurence.WEEKLY,
+		sequence: ['Silver', 'Gold'],
+	},
+	{
+		name: 'Alliance tasks: Field Race',
+		start: utc(2023, 1, 1, 3),
+		occurence: Occurence.WEEKLY,
+		sequence: ['Dash', 'Board'],
+	},
+	{
+		name: 'Alliance tasks: Task',
+		start: utc(2023, 1, 1, 3),
+		occurence: Occurence.WEEKLY,
+		sequence: ['Kudos', 'Region Mags', 'Battledia Yellow'],
 	},
 	{
 		name: 'ARKS Records',
