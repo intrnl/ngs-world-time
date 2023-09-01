@@ -80,7 +80,7 @@ const utcToZonedTime = (date: Date, tz: number) => {
 };
 
 const Occurence = ({ now, event }: { now: Accessor<Date>; event: ScheduledEvent }) => {
-	const { name, start, occurence, sequence } = event;
+	const { name, start, occurence, sequence, sequenceLabel } = event;
 
 	const next = createMemo((prev: ReturnType<typeof getNextOccurence> | undefined) => {
 		const $now = now().getTime();
@@ -92,11 +92,22 @@ const Occurence = ({ now, event }: { now: Accessor<Date>; event: ScheduledEvent 
 		return getNextOccurence($now, start, occurence);
 	});
 
+	const renderSequenceLabel = () => {
+		if (!sequence) {
+			return null;
+		}
+
+		const seq = sequence[next().index % sequence.length];
+		const labeled = sequenceLabel ? sequenceLabel(seq) : seq;
+
+		return <div class="sequence"> {labeled}</div>;
+	};
+
 	return (
 		<tr>
 			<th>
 				<span>{name}</span>
-				{sequence && <span class="sequence"> {sequence[next().index % sequence.length]}</span>}
+				{renderSequenceLabel()}
 			</th>
 			<td>{diffFormat(now(), next().date)}</td>
 		</tr>

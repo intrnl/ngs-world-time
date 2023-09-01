@@ -3,6 +3,7 @@ export interface ScheduledEvent {
 	start: number;
 	occurence: number;
 	sequence?: string[];
+	sequenceLabel?: (seq: string) => string;
 }
 
 const utc = Date.UTC;
@@ -24,10 +25,18 @@ const enum Occurence {
 export const events: ScheduledEvent[] = [
 	// Dailies
 	{
-		name: 'Daily tasks: Region',
+		name: 'Daily tasks:',
 		start: utc(2023, 7, 29, 12),
 		occurence: Occurence.DAILY,
+		sequenceLabel: (seq) => `${seq} Region`,
 		sequence: ['Stia', 'Retem', 'Aelio', 'Kvaris'],
+	},
+	{
+		name: 'Daily tasks:',
+		start: utc(2023, 8, 2, 12),
+		occurence: Occurence.DAILY,
+		sequenceLabel: (seq) => `${seq} Gathering`,
+		sequence: ['Fruit', 'Mineral', 'Vegetable', 'TAMES', 'Seafood'],
 	},
 	{
 		name: 'GP Tree:',
@@ -92,33 +101,38 @@ export const events: ScheduledEvent[] = [
 		occurence: Occurence.WEEKLY,
 	},
 	{
-		name: 'Alliance tasks: Region',
+		name: 'Alliance tasks:',
 		start: utc(2023, 1, 1, 3),
 		occurence: Occurence.WEEKLY,
+		sequenceLabel: (seq) => `${seq} Region`,
 		sequence: ['Aelio', 'Retem', 'Kvaris', 'Stia'],
 	},
 	{
-		name: 'Alliance tasks: Augment',
+		name: 'Alliance tasks:',
 		start: utc(2023, 1, 22, 3),
 		occurence: Occurence.WEEKLY * 4,
+		sequenceLabel: (seq) => `${seq} Augment`,
 		sequence: ['Note A', 'Note B', 'Note C', 'Note D'],
 	},
 	{
-		name: 'Alliance tasks: Rare Enemy',
+		name: 'Alliance tasks:',
 		start: utc(2023, 1, 1, 3),
 		occurence: Occurence.WEEKLY,
+		sequenceLabel: (seq) => `${seq} Rare Enemy`,
 		sequence: ['Silver', 'Gold'],
 	},
 	{
-		name: 'Alliance tasks: Field Race',
+		name: 'Alliance tasks:',
 		start: utc(2023, 1, 1, 3),
 		occurence: Occurence.WEEKLY,
+		sequenceLabel: (seq) => `${seq} Field Race`,
 		sequence: ['Dash', 'Board'],
 	},
 	{
-		name: 'Alliance tasks: Task',
+		name: 'Alliance tasks:',
 		start: utc(2023, 1, 1, 3),
 		occurence: Occurence.WEEKLY,
+		sequenceLabel: (seq) => `${seq} Task`,
 		sequence: ['Kudos', 'Region Mags', 'Battledia Yellow'],
 	},
 	{
