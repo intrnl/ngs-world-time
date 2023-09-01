@@ -100,7 +100,7 @@ const Occurence = ({ now, event }: { now: Accessor<Date>; event: ScheduledEvent 
 		const seq = sequence[next().index % sequence.length];
 		const labeled = sequenceLabel ? sequenceLabel(seq) : seq;
 
-		return <div class="sequence"> {labeled}</div>;
+		return <span class="sequence"> {labeled}</span>;
 	};
 
 	return (
